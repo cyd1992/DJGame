@@ -1,4 +1,6 @@
 #include "MenuScene.h"
+#include "AudioTestScene.h"
+#include "DiskTestScene.h"
 
 USING_NS_CC;
 
@@ -94,12 +96,12 @@ void MenuScene::menuCallback(Ref* sender)
 
 void MenuScene::menuCallbackAudio(Ref* sender)
 {
-	
+	Director::getInstance()->replaceScene(AudioTestScene::createScene());
 }
 
 void MenuScene::menuCallbackDisk(Ref* sender)
 {
-	
+	Director::getInstance()->replaceScene(DiskTestScene::createScene());
 }
 
 
