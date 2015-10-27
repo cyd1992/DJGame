@@ -2,6 +2,7 @@
 #include "MenuScene.h"
 
 USING_NS_CC;
+using namespace cocos2d::experimental;
 
 Scene* AudioTestScene::createScene()
 {
@@ -46,13 +47,111 @@ bool AudioTestScene::init()
 	menu->setPosition(Vec2::ZERO);
 	this->addChild(menu, 1);
 
-	/////////////////////////////
-	// 3. add your codes below...
+	auto sprite1 = Sprite::create("CyanSquare.png");
+	sprite1->setPosition(Vec2(visibleSize.width * 0.2, visibleSize.height * 0.2) );
+// 	CCLOG("%f-----%f",visibleSize.width ,visibleSize.height);
+// 	CCLOG("%f-----%f", origin.x, origin.y);
+	addChild(sprite1, 10);
 
-	// add a label shows "Hello World"
-	// create and initialize a label
 
-	
+	//audio
+	_audioCount = 0;
+	_minDelay = 1.0f;
+	_time = 0.0f;
+	_backFlag = false;
+
+	_audioProfile.name = "AudioTestScene";
+	_audioProfile.maxInstances = 3;
+	_audioProfile.minDelay = 0.1;
+
+	_idBack = AudioEngine::play2d("music/t1.mp3", false, 1.0f, &_audioProfile);
+	int id = _idBack;
+	log("_idBack: %d", _idBack);
+	AudioEngine::setFinishCallback(id, [&](int id, const std::string& filePath) {
+		_audioCount -= 1;
+		log("finished!");
+		_backFlag = false;
+	});
+
+
+	// Make sprite1 touchable
+	auto listener1 = EventListenerTouchOneByOne::create();
+	listener1->setSwallowTouches(true);
+
+	listener1->onTouchBegan = [&](Touch* touch, Event* event) {
+		auto target = static_cast<Sprite*>(event->getCurrentTarget());
+
+		Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());
+		Size s = target->getContentSize();
+		Rect rect = Rect(0, 0, s.width, s.height);
+		
+		//log("touched!");
+
+		if (rect.containsPoint(locationInNode))
+		{
+			//auto temp =  static_cast<AudioTestScene*>(target->getParent());
+			
+
+			log("sprite began... x = %f, y = %f", locationInNode.x, locationInNode.y);
+			target->setOpacity(180);
+
+			//if (_backFlag == false) {
+
+				_backFlag = true;
+				_idBack = AudioEngine::play2d("music/t2.mp3", false, 1.0f, &_audioProfile);
+				int id = _idBack;
+				log("_idBack: %d", _idBack);
+				AudioEngine::setFinishCallback(id, [&](int id, const std::string& filePath) {
+					_audioCount -= 1;
+					log("finished!");
+					_backFlag = false;
+				});
+				if (id != AudioEngine::INVALID_AUDIO_ID) {
+					_time = _minDelay;
+					_audioCount += 1;
+					//char show[30];
+					//sprintf(show, "audio count:%d", _audioCount);
+					//_showLabel->setString(show);
+					log("_idBack: %d", _idBack);
+					
+				}
+			//}
+
+			return true;
+		}
+
+		
+
+		return false;
+	};
+
+	listener1->onTouchMoved = [](Touch* touch, Event* event) {
+// 		auto target = static_cast<Sprite*>(event->getCurrentTarget());
+// 		target->setPosition(target->getPosition() + touch->getDelta());
+		//log("moved!");
+	};
+
+	listener1->onTouchEnded = [=](Touch* touch, Event* event) {
+ 		auto target = static_cast<Sprite*>(event->getCurrentTarget());
+// 		log("sprite onTouchesEnded.. ");
+ 		target->setOpacity(255);
+
+		//auto temp = static_cast<AudioTestScene*>(target->getParent());
+
+		//AudioEngine::stop(temp->_idBack);
+// 		if (target == sprite2)
+// 		{
+// 			containerForSprite1->setLocalZOrder(100);
+// 		}
+// 		else if (target == sprite1)
+// 		{
+// 			containerForSprite1->setLocalZOrder(0);
+// 		}
+
+		//log("moved!");
+	};
+
+	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, sprite1);
 
 	return true;
 }

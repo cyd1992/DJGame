@@ -3,6 +3,8 @@
 
 #include "cocos2d.h"
 
+#include "audio/include/AudioEngine.h"
+
 class AudioTestScene : public cocos2d::Layer
 {
 public:
@@ -15,6 +17,14 @@ public:
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(AudioTestScene);
+
+
+	cocos2d::experimental::AudioProfile _audioProfile;
+	float _time;
+	float _minDelay;
+	int _audioCount;
+	int _idBack;
+	bool _backFlag;
 };
 
 #endif // __HELLOWORLD_SCENE_H__#pragma once
