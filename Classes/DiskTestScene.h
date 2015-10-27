@@ -15,6 +15,11 @@ public:
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(DiskTestScene);
+
+	float first_x1, first_y1;
+	float move_x2, move_y2;
+	float first_rotation ;
+
 };
 
 #endif // __HELLOWORLD_SCENE_H__

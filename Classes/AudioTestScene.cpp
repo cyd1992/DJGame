@@ -64,14 +64,7 @@ bool AudioTestScene::init()
 	_audioProfile.maxInstances = 3;
 	_audioProfile.minDelay = 0.1;
 
-	_idBack = AudioEngine::play2d("music/t1.mp3", false, 1.0f, &_audioProfile);
-	int id = _idBack;
-	log("_idBack: %d", _idBack);
-	AudioEngine::setFinishCallback(id, [&](int id, const std::string& filePath) {
-		_audioCount -= 1;
-		log("finished!");
-		_backFlag = false;
-	});
+
 
 
 	// Make sprite1 touchable
