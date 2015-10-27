@@ -132,7 +132,7 @@ bool DiskTestScene::init()
 
 		//log("sprite began... x = %f, y = %f , angle = %f", touch->getLocation().x, touch->getLocation().y, angle*180/3.1415);
 
-		((Sprite*)(target->getParent()->getChildByTag(100)))->setRotation(first_rotation + angle * 360.0 / 3.1415);
+		((Sprite*)(target->getParent()->getChildByTag(100)))->setRotation(first_rotation + angle * 180.0 / 3.1415);
 
 	};
 
