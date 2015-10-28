@@ -125,8 +125,8 @@ bool DiskTestScene::init()
 
 
 		float angle = p2.getAngle(p1);
-		if (angle > 179.99) angle += 180;
-		if (angle < -179.99) angle -= 180;
+		//if (angle > 179.99) angle += 180;
+		//if (angle < -179.99) angle -= 180;
 // 		float delta_x = first_x1 - move_x2;
 // 		float delta_y = first_y1 - move_x2;
 
@@ -140,21 +140,21 @@ bool DiskTestScene::init()
 		auto target = static_cast<Sprite*>(event->getCurrentTarget());
 		
 
-		Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());
-		move_x2 = locationInNode.x;
-		move_y2 = locationInNode.y;
-
-		Vec2 originV = Vec2(480.0, 270.0);
-
-		Vec2 p1 = Vec2(first_x1, first_y1) - originV;
-		Vec2 p2 = Vec2(move_x2, move_y2) - originV;
-
-		float angle = p2.getAngle(p1);
-
-		log(" x1 = %f, y1 = %f ", first_x1, first_y1);
-		log(" x2 = %f, y2 = %f ", move_x2, move_y2);
-
-		log("angle = %f ", angle *2*180.0/3.1415);
+// 		Vec2 locationInNode = target->convertToNodeSpace(touch->getLocation());
+// 		move_x2 = locationInNode.x;
+// 		move_y2 = locationInNode.y;
+// 
+// 		Vec2 originV = Vec2(480.0, 270.0);
+// 
+// 		Vec2 p1 = Vec2(first_x1, first_y1) - originV;
+// 		Vec2 p2 = Vec2(move_x2, move_y2) - originV;
+// 
+// 		float angle = p2.getAngle(p1);
+// 
+// 		log(" x1 = %f, y1 = %f ", first_x1, first_y1);
+// 		log(" x2 = %f, y2 = %f ", move_x2, move_y2);
+// 
+// 		log("angle = %f ", angle *2*180.0/3.1415);
 
 	};
 
