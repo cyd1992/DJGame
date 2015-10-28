@@ -65,8 +65,6 @@ bool AudioTestScene::init()
 	_audioProfile.minDelay = 0.1;
 
 
-
-
 	// Make sprite1 touchable
 	auto listener1 = EventListenerTouchOneByOne::create();
 	listener1->setSwallowTouches(true);
