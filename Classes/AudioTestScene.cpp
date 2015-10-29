@@ -1,5 +1,6 @@
 #include "AudioTestScene.h"
 #include "MenuScene.h"
+#include "AudioComponent.h"
 
 USING_NS_CC;
 using namespace cocos2d::experimental;
@@ -127,9 +128,9 @@ bool AudioTestScene::init()
 // 		log("sprite onTouchesEnded.. ");
  		target->setOpacity(255);
 
-		//auto temp = static_cast<AudioTestScene*>(target->getParent());
+		auto temp = static_cast<AudioTestScene*>(target->getParent());
 
-		//AudioEngine::stop(temp->_idBack);
+		AudioEngine::stop(temp->_idBack);
 // 		if (target == sprite2)
 // 		{
 // 			containerForSprite1->setLocalZOrder(100);
@@ -143,6 +144,16 @@ bool AudioTestScene::init()
 	};
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, sprite1);
+
+	auto drumSprite = DrumSprite::create("CyanSquare.png");
+	drumSprite->setPosition(Vec2(visibleSize.width * 0.4, visibleSize.height * 0.2));
+	drumSprite->setMusicFile("music/t1.mp3");
+
+	addChild(drumSprite, 10);
+
+	drumSprite->RegistListener();
+
+	
 
 	return true;
 }
