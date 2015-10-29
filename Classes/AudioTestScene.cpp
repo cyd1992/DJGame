@@ -55,6 +55,9 @@ bool AudioTestScene::init()
 	addChild(sprite1, 10);
 
 
+
+
+
 	//audio
 	_audioCount = 0;
 	_minDelay = 1.0f;
@@ -145,15 +148,38 @@ bool AudioTestScene::init()
 
 	_eventDispatcher->addEventListenerWithSceneGraphPriority(listener1, sprite1);
 
+	//use DrumSprite 
 	auto drumSprite = DrumSprite::create("CyanSquare.png");
 	drumSprite->setPosition(Vec2(visibleSize.width * 0.4, visibleSize.height * 0.2));
 	drumSprite->setMusicFile("music/t1.mp3");
 
 	addChild(drumSprite, 10);
 
-	drumSprite->RegistListener();
+	drumSprite->RegistListener(_audioProfile);
 
+	//
+	//create play menu
+	playItem = MenuItemFont::create("play", [&](Ref *sender) {
+		log("play");
+		int id;
+		id = AudioEngine::play2d("music/back.mp3", false, 1.0f, &_audioProfile);
+
+		AudioEngine::setFinishCallback(id, [&](int id, const std::string& filePath) {
+			//_audioCount -= 1;
+			log("finished!");
+			//_backFlag = false;
+		});
+
+		playItem->setEnabled(false);
+	}
+
+	);
+
+	playItem->setPosition(visibleSize.width*0.1, visibleSize.height*0.5);
 	
+	auto menuPlay = Menu::create(playItem, NULL);
+	menuPlay->setPosition(Vec2::ZERO);
+	addChild(menuPlay);
 
 	return true;
 }
@@ -163,4 +189,9 @@ void AudioTestScene::menuCallbackBack(Ref* pSender)
 {
 	Director::getInstance()->replaceScene(MenuScene::createScene());
 
+}
+
+void AudioTestScene::menuCallbackPlay(cocos2d::Ref* pSender)
+{
+	
 }

@@ -39,7 +39,7 @@ void DrumSprite::setMusicFile(const std::string& musicFile)
 	
 }
 
-void DrumSprite::RegistListener()
+void DrumSprite::RegistListener(cocos2d::experimental::AudioProfile& _audioProfile)
 {
 	// Make sprite1 touchable
 	auto listener1 = EventListenerTouchOneByOne::create();
@@ -64,7 +64,7 @@ void DrumSprite::RegistListener()
 			
 			//log("%s",this->_musicFile);
 			//log(musicFile->_string) ;
-			_id = AudioEngine::play2d(this->_musicFile->c_str() , false, 1.0f);
+			_id = AudioEngine::play2d(this->_musicFile->c_str() , false, 1.0f, &_audioProfile);
 			int id = _id;
 			//log("_idBack: %d", _id);
 			// 			if (id != AudioEngine::INVALID_AUDIO_ID) {

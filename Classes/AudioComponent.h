@@ -21,7 +21,7 @@ public:
 
 	void setMusicFile(const std::string& musicFile);
 	
-	void RegistListener();
+	void RegistListener(cocos2d::experimental::AudioProfile& _audioProfile);
 
 	std::string* _musicFile;
 

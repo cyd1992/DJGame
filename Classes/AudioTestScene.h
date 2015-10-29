@@ -15,11 +15,12 @@ public:
 
 	// a selector callback
 	void menuCallbackBack(cocos2d::Ref* pSender);
+	void menuCallbackPlay(cocos2d::Ref* pSender);
 
 	// implement the "static create()" method manually
 	CREATE_FUNC(AudioTestScene);
 
-
+	cocos2d::MenuItemFont* playItem;
 	cocos2d::experimental::AudioProfile _audioProfile;
 	float _time;
 	float _minDelay;
