@@ -1,6 +1,7 @@
 #include "MenuScene.h"
 #include "AudioTestScene.h"
 #include "DiskTestScene.h"
+#include "MainGameScene.h"
 
 USING_NS_CC;
 
@@ -59,8 +60,9 @@ bool MenuScene::init()
 	MenuItemFont::setFontName("fonts/Marker Felt.ttf");
 	auto item1 = MenuItemFont::create("AudioTest", CC_CALLBACK_1(MenuScene::menuCallbackAudio, this));
 	auto item2 = MenuItemFont::create("DiskTest", CC_CALLBACK_1(MenuScene::menuCallbackDisk, this));
+	auto item3 = MenuItemFont::create("MainGameScene", CC_CALLBACK_1(MenuScene::menuCallbackMain, this));
 
-	auto menu = Menu::create(item1,item2, nullptr);
+	auto menu = Menu::create(item1,item2,item3, nullptr);
 	menu->alignItemsVertically();
 
 	addChild(menu);
@@ -112,4 +114,9 @@ void MenuScene::menuCloseCallback(Ref* pSender)
 #if (CC_TARGET_PLATFORM == CC_PLATFORM_IOS)
 	exit(0);
 #endif
+}
+
+void MenuScene::menuCallbackMain(cocos2d::Ref* sender)
+{
+	Director::getInstance()->replaceScene(MainGameScene::createScene());
 }
