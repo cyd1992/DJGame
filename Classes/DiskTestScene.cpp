@@ -1,7 +1,12 @@
 #include "DiskTestScene.h"
 #include "MenuScene.h"
 
-#include "math.h"
+#include "FXDiskSprite.h"
+#include "BGDiskSprite.h"
+
+
+#include "DJPanel.h"
+#include "DiskPanel1.h"
 
 USING_NS_CC;
 
@@ -58,7 +63,7 @@ bool DiskTestScene::init()
 	
 	//this->addChild(sprite2, 10);
 
-
+/*
 	// add disk sprite
 	auto sprite = Sprite::create("disk.png");
 
@@ -164,6 +169,38 @@ bool DiskTestScene::init()
 
 	// add the sprite as a child to this layer
 	this->addChild(sprite, 0);
+
+
+*/
+
+
+	// FX DISK
+	auto sprite = FXDiskSprite::create("disk.png");
+	sprite->setScale(0.75);
+
+	sprite->setPosition(visibleSize.width / 4, visibleSize.height / 2);
+	addChild(sprite, 0);
+
+	sprite->RegistListener();
+
+
+	//BG DISK
+// 	auto sprite2 = BGDiskSprite::create("disk.png");
+// 	sprite2->setScale(0.75);
+// 
+// 	sprite2->setPosition(visibleSize.width / 4 *3, visibleSize.height / 2);
+// 	addChild(sprite2, 0);
+// 
+// 	sprite2->StartRotate();
+
+
+
+	// panel test
+	auto panel = DiskPanel1::create();//LayerColor::create(Color4B(192,0,0,100));
+	//panel->ignoreAnchorPointForPosition(false);
+	panel->setPosition(visibleSize.width/2, 0);
+	//panel->setColor(Color3B(192, 0, 0));
+	addChild(panel,10);
 
 
 
