@@ -27,6 +27,19 @@ public:
 
 };
 
+class NoteSprite : public cocos2d::Sprite
+{
+public:
+
+	int _id = 6;
+
+	static NoteSprite* create(const std::string& filename);
+
+	void StartDrop();
+
+
+};
+
 
 
 

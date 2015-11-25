@@ -43,7 +43,7 @@ bool DrumPanel1::init()
 	//add drums
 	auto drumSprite = DrumSprite::create("CyanSquare.png");
 	drumSprite->setPosition(Vec2(visibleSize.width * 0.34, visibleSize.height * 0.2));
-	drumSprite->setMusicFile("music/beat1.mp3");
+	drumSprite->setMusicFile("music/lv1/beat1.mp3");
 
 	addChild(drumSprite, 10);
 
@@ -51,11 +51,17 @@ bool DrumPanel1::init()
 
 	auto drumSprite2 = DrumSprite::create("CyanSquare.png");
 	drumSprite2->setPosition(Vec2(visibleSize.width * 0.6, visibleSize.height * 0.2));
-	drumSprite2->setMusicFile("music/beat2.mp3");
+	drumSprite2->setMusicFile("music/lv1/beat2.mp3");
 
 	addChild(drumSprite2, 10);
 
 	drumSprite2->RegistListener(_audioProfile);
+
+	//add note 
+// 	auto noteSprite = NoteSprite::create("note.png");
+// 	noteSprite->setPosition(visibleSize.width * 0.6, visibleSize.height * 0.8);
+// 	noteSprite->setOpacity(100);
+// 	addChild(noteSprite);
 
 	return true;
 }

@@ -109,3 +109,32 @@ void DrumSprite::RegistListener(cocos2d::experimental::AudioProfile& _audioProfi
 
 
 
+NoteSprite* NoteSprite::create(const std::string& filename)
+{
+	NoteSprite *sprite = new (std::nothrow) NoteSprite();
+	if (sprite && sprite->initWithFile(filename))
+	{
+		sprite->autorelease();
+
+		return sprite;
+	}
+	CC_SAFE_DELETE(sprite);
+	return nullptr;
+}
+
+
+void NoteSprite::StartDrop()
+{
+	Size visibleSize = Director::getInstance()->getVisibleSize();
+
+	auto move1 = MoveBy::create(1.5, Vec2(0, -1 * visibleSize.height));
+	auto move2 = MoveBy::create(0.5, Vec2(0, -1 * visibleSize.height / 3));
+	auto callfunc = CallFunc::create([this]() {
+		//log("remove!");
+		this->removeFromParentAndCleanup(true);
+	});
+
+	auto seq = Sequence::create(move1, move2, callfunc, NULL);
+
+	this->runAction(seq);
+}

@@ -17,6 +17,7 @@ public:
 	// implement the "static create()" method manually
 	CREATE_FUNC(MainGameScene);
 
+	int _backId;
 	cocos2d::experimental::AudioProfile _audioProfile;
 
 	float first_x1, first_y1;

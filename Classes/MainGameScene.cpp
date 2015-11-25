@@ -7,7 +7,12 @@
 #include "DiskPanel1.h"
 #include "DrumPanel1.h"
 
+#include "DJScheduler.h"
+
+#include "XMLParserUtil.h"
+
 USING_NS_CC;
+using namespace cocos2d::experimental;
 
 Scene* MainGameScene::createScene()
 {
@@ -62,10 +67,38 @@ bool MainGameScene::init()
 
 	//this->addChild(sprite2, 10);
 
+	//preload music
+	AudioEngine::preload("music/beat1.mp3", [](bool isSuccess) {
+		if (isSuccess)
+		{
+			//stateLabel->setString("status:load success");
+			log("load music/beat1.mp3  succeed!");
+		}
+		else
+		{
+			//stateLabel->setString("status:load fail");
+			log("load music/beat1.mp3  failed!");
+		}
+	});
+
+	AudioEngine::preload("music/lv1/back1.mp3", [](bool isSuccess) {
+		if (isSuccess)
+		{
+			//stateLabel->setString("status:load success");
+			log("load music/beat1.mp3  succeed!");
+		}
+		else
+		{
+			//stateLabel->setString("status:load fail");
+			log("load music/beat1.mp3  failed!");
+		}
+	});
+
 	// panel test
 	auto panel = DrumPanel1::create();//LayerColor::create(Color4B(192,0,0,100));
 									  //panel->ignoreAnchorPointForPosition(false);
 	panel->setPosition(0, 0);
+	panel->setTag(101);
 	//panel->setColor(Color3B(192, 0, 0));
 	addChild(panel, 0);
 
@@ -76,8 +109,30 @@ bool MainGameScene::init()
 	//panel->setColor(Color3B(192, 0, 0));
 	addChild(panel2, 1);
 
-	
+	// scheduler test
+	auto sche = DJScheduler::create();
+	addChild(sche);
+	//sche->schedule(CC_SCHEDULE_SELECTOR(DJScheduler::callback1), 0.2f);
+	//audio profile
+	_audioProfile.name = "MainGameScene";
+	_audioProfile.maxInstances = 3;
+	_audioProfile.minDelay = 0.1;
 
+	XMLParseUtil::ParseLevel("level/level1.xml");
+	XMLParseUtil::PrintVec();
+
+	_backId = AudioEngine::play2d("music/lv1/back1.mp3", false, 1.0f, &_audioProfile);
+	log("backid: %d", _backId);
+	//start back music
+
+
+	sche->StartTimer();
+
+	//note test
+// 	auto note = NoteSprite::create("note.png");
+// 	note->setPosition(visibleSize.width *0.17, visibleSize.height *1.2);
+// 	panel->addChild(note);
+// 	note->StartDrop();
 
 
 
@@ -87,6 +142,9 @@ bool MainGameScene::init()
 
 void MainGameScene::menuCallbackBack(Ref* pSender)
 {
+	log("backid: %d", _backId);
+	AudioEngine::stop(_backId);
+	
 	Director::getInstance()->replaceScene(MenuScene::createScene());
 
 }

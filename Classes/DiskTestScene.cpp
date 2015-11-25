@@ -8,6 +8,8 @@
 #include "DJPanel.h"
 #include "DiskPanel1.h"
 
+#include "XMLParserUtil.h"
+
 USING_NS_CC;
 
 Scene* DiskTestScene::createScene()
@@ -202,7 +204,7 @@ bool DiskTestScene::init()
 	//panel->setColor(Color3B(192, 0, 0));
 	addChild(panel,10);
 
-
+	//XMLParseUtil::ParseLevel("level/level1.xml");
 
 	return true;
 }
